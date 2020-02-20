@@ -1,7 +1,7 @@
 {
   "name": "economy",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "handler.ts",
   "repository": "git@github.com:max-buranbaev/economy",
   "author": "Max Buranbaev <max@izst.ru>",
   "license": "MIT",
