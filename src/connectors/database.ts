@@ -1,8 +1,10 @@
 import { FormattedDataForDatabase } from "../types/types";
-const { Pool } = require("pg");
-const extractValues = require("lodash/values");
-const format = require('pg-format');
-require('dotenv-flow').config();
+import { Pool } from 'pg';
+import * as extractValues from 'lodash/values';
+import * as format from 'pg-format';
+import * as flow from 'dotenv-flow';
+
+flow.config();
 
 export async function writeBatchOfTime(time: FormattedDataForDatabase[]) {
   const pool = new Pool({
