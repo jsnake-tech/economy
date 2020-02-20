@@ -2,14 +2,15 @@ import { FormattedDataForDatabase } from "../types/types";
 const { Pool } = require("pg");
 const extractValues = require("lodash/values");
 const format = require('pg-format');
+require('dotenv-flow').config();
 
 export async function writeBatchOfTime(time: FormattedDataForDatabase[]) {
   const pool = new Pool({
-    user: "doadmin",
-    host: "jsnake-economy-do-user-3507145-0.db.ondigitalocean.com",
-    database: "defaultdb",
-    password: "zlyhv60l9d7g5sbl",
-    port: 25060,
+    user: process.env.DATABASE_USER,
+    host: process.env.DATABASE_HOST,
+    database: process.env.DATABASE_NAME,
+    password: process.env.DATABASE_PASS,
+    port: process.env.DATABASE_PORT,
     ssl: true
   });
 
