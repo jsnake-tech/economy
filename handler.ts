@@ -1,9 +1,8 @@
 "use strict";
-const { tagEvent } = require("./serverless_sdk");
+import { sync } from './src/script';
 
 module.exports.hello = async event => {
-  tagEvent("custom-tag", "hello world", { custom: { tag: "data" } });
-
+  await sync();
   return {
     statusCode: 200,
     headers: {
@@ -12,7 +11,7 @@ module.exports.hello = async event => {
     },
     body: JSON.stringify(
       {
-        message: "Go Serverless v1.0! Your function executed successfully!",
+        message: "Sync is Done",
         input: event
       },
       null,

@@ -1,0 +1,16 @@
+{
+  "name": "economy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:max-buranbaev/economy",
+  "author": "Max Buranbaev <max@izst.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "lodash": "^4.17.15",
+    "pg": "^7.18.1",
+    "pg-format": "^1.0.4",
+    "source-map-support": "^0.5.16",
+    "spacetime": "^6.4.1"
+  }
+}
