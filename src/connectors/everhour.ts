@@ -5,10 +5,10 @@ import {
   Time,
   FormattedDataForDatabase
 } from "../types/types";
-import 'source-map-support/register'
+import "source-map-support/register";
 const axios = require("axios");
 const spacetime = require("spacetime");
-const get = require('lodash/get');
+const get = require("lodash/get");
 
 const apiKey = "ea4d-7006-844458-958b15-9de915be";
 const instance = axios.create({
@@ -55,20 +55,27 @@ export async function getFormattedDataForDatabase() {
 
   function getProjectRateById(id: string, userId: number): number {
     const project: Project | undefined = data.projects.find(el => el.id === id);
+
     if (
       project !== undefined &&
       project.rate !== undefined &&
       project.rate.type === "user_rate"
     ) {
-      if (
-        project.rate.userRateOverrides !== undefined &&
-        userId in project.rate.userRateOverrides
-      ) {
-        return project.rate.userRateOverrides[userId];
-      } else {
-        return getUserRateById(userId);
-      }
+      return userId in project.rate.userRateOverrides
+        ? project.rate.userRateOverrides[userId]
+        : getUserRateById(userId);
     }
+
+    if (
+      project !== undefined &&
+      project.rate !== undefined &&
+      project.rate.type === "user_rate"
+    ) {
+      return userId in project.rate.userRateOverrides
+        ? project.rate.userRateOverrides[userId]
+        : getUserRateById(userId);
+    }
+    
     return project && project.rate && project.rate.rate ? project.rate.rate : 0;
   }
 
@@ -91,30 +98,26 @@ export async function getFormattedDataForDatabase() {
   }
 
   for (let i = 0; i < data.time.length; i++) {
-    const userName = get(data, ['time', i, 'user', 'name'], 'No User Name');
-    const userId = get(data, ['time', i, 'user', 'id'], 'No User Id');
-    const taskName = get(data, ['time', i, 'task', 'name'], 'No Task Name');
-    const projectId = get(data, ['time', i, 'project', 'id'], 'No Project Id');
-    const projectName =  get(data, ['time', i, 'project', 'name'], 'No Project Name');
+    const userName = get(data, ["time", i, "user", "name"], "No User Name");
+    const userId = get(data, ["time", i, "user", "id"], "No User Id");
+    const taskName = get(data, ["time", i, "task", "name"], "No Task Name");
+    const projectId = get(data, ["time", i, "project", "id"], "No Project Id");
+    const projectName = get(
+      data,
+      ["time", i, "project", "name"],
+      "No Project Name"
+    );
 
-    
     let formattedEntry: FormattedDataForDatabase = {
       member: userName,
       task: taskName,
       billable_amount: data.time[i].project
-        ? getBillableAmount(
-            data.time[i].time,
-            projectId,
-            userId
-          )
+        ? getBillableAmount(data.time[i].time, projectId, userId)
         : 0,
       cost: getCost(data.time[i].time, userId),
       profit: data.time[i].project
-        ? getBillableAmount(
-            data.time[i].time,
-            projectId,
-            userId
-          ) - getCost(data.time[i].time,  userId)
+        ? getBillableAmount(data.time[i].time, projectId, userId) -
+          getCost(data.time[i].time, userId)
         : 0,
       negative_estimation: 0,
       positive_estimation: 0,

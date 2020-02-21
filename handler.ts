@@ -1,7 +1,7 @@
 "use strict";
 import { sync } from './src/script';
 
-module.exports.hello = async event => {
+module.exports.sync = async event => {
   await sync();
   return {
     statusCode: 200,

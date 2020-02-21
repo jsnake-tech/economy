@@ -1,5 +1,5 @@
-service: my-first-service
-app: my-first-app
+service: buranbaev-economy
+app: sync-ever-to-db
 org: maxburanbaev
 
 provider:
@@ -9,10 +9,10 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.sync
     events:
       - http:
-          path: hello
+          path: sync
           method: get
           cors: true
 plugins:
