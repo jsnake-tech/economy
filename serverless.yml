@@ -17,4 +17,4 @@ functions:
           cors: true
 plugins:
   - serverless-plugin-typescript
-
+  - serverless-dotenv-plugin
