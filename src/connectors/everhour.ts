@@ -18,22 +18,23 @@ const instance = axios.create({
 });
 
 async function getUsers(): Promise<User[]> {
-  const response = await instance.get("/team/users");
-  return response.data;
+  const { data } = await instance.get("/team/users");
+  return data;
 }
 
 async function getProjects(): Promise<Project[]> {
-  const response = await instance.get("/projects?platform=as");
-  return response.data;
+  const { data } = await instance.get("/projects?platform=as");
+  return data;
 }
 
 async function getTime(): Promise<Time[]> {
-  const response = await instance.get(
+  const  allowedFieds = ['date', 'user', 'project'];
+  const { data } = await instance.get(
     `/team/time/export?from=2020-01-01&to=${spacetime
       .now("Europe/Paris")
-      .format("YYYY-MM-DD")}&fields=date,user,task,project`
+      .format("YYYY-MM-DD")}&fields=${allowedFieds.join(',')}`
   );
-  return response.data;
+  return data;
 }
 
 async function getEverhourData(): Promise<EverhourData> {
@@ -75,7 +76,7 @@ export async function getFormattedDataForDatabase() {
         ? project.rate.userRateOverrides[userId]
         : getUserRateById(userId);
     }
-    
+
     return project && project.rate && project.rate.rate ? project.rate.rate : 0;
   }
 
@@ -108,7 +109,7 @@ export async function getFormattedDataForDatabase() {
       "No Project Name"
     );
 
-    let formattedEntry: FormattedDataForDatabase = {
+    const formattedEntry: FormattedDataForDatabase = {
       member: userName,
       task: taskName,
       billable_amount: data.time[i].project
