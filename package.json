@@ -11,6 +11,7 @@
     "lodash": "^4.17.15",
     "pg": "^7.18.1",
     "pg-format": "^1.0.4",
+    "serverless": "^1.64.0",
     "serverless-plugin-typescript": "^1.1.9",
     "source-map-support": "^0.5.16",
     "spacetime": "^6.4.1"

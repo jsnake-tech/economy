@@ -6,11 +6,11 @@ import {
   FormattedDataForDatabase
 } from "../types/types";
 import "source-map-support/register";
-const axios = require("axios");
-const spacetime = require("spacetime");
-const get = require("lodash/get");
+import axios from "axios";
+import spacetime from "spacetime";
+import * as get from "lodash/get";
 
-const apiKey = "ea4d-7006-844458-958b15-9de915be";
+const apiKey = process.env.EVERHOUR_API;
 const instance = axios.create({
   baseURL: "https://api.everhour.com/",
   timeout: 50000,
