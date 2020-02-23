@@ -7,7 +7,7 @@ import {
 } from "../types/types";
 import "source-map-support/register";
 import axios from "axios";
-import spacetime from "spacetime";
+import * as spacetime from "spacetime";
 import * as get from "lodash/get";
 
 const apiKey = process.env.EVERHOUR_API;
