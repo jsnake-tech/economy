@@ -28,7 +28,7 @@ async function getProjects(): Promise<Project[]> {
 }
 
 async function getTime(): Promise<Time[]> {
-  const  allowedFieds = ['date', 'user', 'project'];
+  const  allowedFieds = ['date', 'user', 'project', 'task'];
   const { data } = await instance.get(
     `/team/time/export?from=2020-01-01&to=${spacetime
       .now("Europe/Paris")
