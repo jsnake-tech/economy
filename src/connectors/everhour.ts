@@ -7,8 +7,10 @@ import {
 } from "../types/types";
 import "source-map-support/register";
 import axios from "axios";
-import * as spacetime from "spacetime";
-import * as get from "lodash/get";
+import { get } from "lodash";
+import * as flow from 'dotenv-flow';
+
+flow.config();
 
 const apiKey = process.env.EVERHOUR_API;
 const instance = axios.create({
@@ -29,10 +31,11 @@ async function getProjects(): Promise<Project[]> {
 
 async function getTime(): Promise<Time[]> {
   const  allowedFieds = ['date', 'user', 'project', 'task'];
+  const now = new Date();
+  let month = `0${now.getMonth() + 1}`.slice(-2);
+  let day = `0${now.getDate()}`.slice(-2);
   const { data } = await instance.get(
-    `/team/time/export?from=2020-01-01&to=${spacetime
-      .now("Europe/Paris")
-      .format("YYYY-MM-DD")}&fields=${allowedFieds.join(',')}`
+    `/team/time/export?from=2020-01-01&to=${`${now.getFullYear()}-${month}-${day}`}&fields=${allowedFieds.join(',')}`
   );
   return data;
 }

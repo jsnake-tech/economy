@@ -1,10 +1,7 @@
 import { FormattedDataForDatabase } from "../types/types";
 import { Pool } from 'pg';
-import * as extractValues from 'lodash/values';
+import { values as extractValues }  from 'lodash';
 import * as format from 'pg-format';
-import * as flow from 'dotenv-flow';
-
-flow.config();
 
 export async function writeBatchOfTime(time: FormattedDataForDatabase[]) {
   const pool = new Pool({
@@ -13,7 +10,8 @@ export async function writeBatchOfTime(time: FormattedDataForDatabase[]) {
     database: process.env.DATABASE_NAME,
     password: process.env.DATABASE_PASS,
     port: process.env.DATABASE_PORT,
-    ssl: true
+    ssl: true,
+    rejectUnauthorized: true
   });
 
   const client = await pool.connect();
