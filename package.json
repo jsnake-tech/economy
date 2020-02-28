@@ -1,23 +1,26 @@
 {
   "name": "economy",
   "version": "1.0.0",
-  "main": "handler.ts",
+  "main": "index.ts",
   "repository": "git@github.com:max-buranbaev/economy",
   "author": "Max Buranbaev <max@izst.ru>",
   "license": "MIT",
+  "scripts": {
+    "start": "node .build/index.js"
+  },
   "dependencies": {
     "axios": "^0.19.2",
+    "dayjs": "^1.8.21",
     "dotenv-flow": "^3.1.0",
     "lodash": "^4.17.15",
+    "node-telegram-bot-api": "^0.40.0",
     "pg": "^7.18.1",
     "pg-format": "^1.0.4",
-    "serverless": "^1.64.0",
-    "serverless-plugin-typescript": "^1.1.9",
+    "request-promise": "^4.2.5",
     "source-map-support": "^0.5.16",
-    "spacetime": "^6.4.1",
     "typescript": "^3.8.2"
   },
   "devDependencies": {
-    "serverless-dotenv-plugin": "^2.3.2"
+    "nodemon": "^2.0.2"
   }
 }
