@@ -1,2 +1,3 @@
-import { sync } from './src/script';
-sync();
+import { initiateBot } from './src/connectors/bot';
+
+initiateBot();

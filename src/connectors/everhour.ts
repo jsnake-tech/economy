@@ -5,7 +5,6 @@ import {
   Time,
   FormattedDataForDatabase
 } from "../types/types";
-import "source-map-support/register";
 import axios from "axios";
 import { get } from "lodash";
 import * as flow from 'dotenv-flow';
@@ -29,18 +28,18 @@ async function getProjects(): Promise<Project[]> {
   return data;
 }
 
-async function getTime(): Promise<Time[]> {
+async function getTime(date: string): Promise<Time[]> {
   const  allowedFieds = ['date', 'user', 'project', 'task'];
   const now = new Date();
   let month = `0${now.getMonth() + 1}`.slice(-2);
   let day = `0${now.getDate()}`.slice(-2);
   const { data } = await instance.get(
-    `/team/time/export?from=2020-01-01&to=${`${now.getFullYear()}-${month}-${day}`}&fields=${allowedFieds.join(',')}`
+    `/team/time/export?from=${date}&to=${`${now.getFullYear()}-${month}-${day}`}&fields=${allowedFieds.join(',')}`
   );
   return data;
 }
 
-async function getEverhourData(): Promise<EverhourData> {
+async function getEverhourData(date: string): Promise<EverhourData> {
   const data: EverhourData = {
     users: [],
     projects: [],
@@ -48,13 +47,13 @@ async function getEverhourData(): Promise<EverhourData> {
   };
 
   data.users = await getUsers();
-  data.time = await getTime();
+  data.time = await getTime(date);
   data.projects = await getProjects();
   return data;
 }
 
-export async function getFormattedDataForDatabase() {
-  const data = await getEverhourData();
+export async function getFormattedDataForDatabase(date: string) {
+  const data = await getEverhourData(date);
   const result: FormattedDataForDatabase[] = [];
 
   function getProjectRateById(id: string, userId: number): number {
