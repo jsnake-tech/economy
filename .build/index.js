@@ -40,18 +40,13 @@ var bot_1 = require("./src/connectors/bot");
 var http = require("http");
 var server = http.createServer(function (request, response) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        switch (request.url) {
-            case "/run_bot": {
-                bot_1.initiateBot();
-                response.setHeader("Content-Type", "text/json");
-                try {
-                    response.end();
-                }
-                catch (err) {
-                    console.error(err);
-                }
-                break;
-            }
+        bot_1.initiateBot();
+        response.setHeader("Content-Type", "text/json");
+        try {
+            response.end();
+        }
+        catch (err) {
+            console.error(err);
         }
         return [2 /*return*/];
     });
