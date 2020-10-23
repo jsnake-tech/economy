@@ -37,6 +37,7 @@ export async function writeBatchOfTime(time: FormattedDataForDatabase[]) {
     await client.query("COMMIT");
   } catch (e) {
     await client.query("ROLLBACK");
+    console.error(e);
     throw e;
   } finally {
     client.release();

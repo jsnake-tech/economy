@@ -1,6 +1,6 @@
+import * as TelegramBot from "node-telegram-bot-api";
 import * as rp from "request-promise";
 import * as flow from "dotenv-flow";
-import * as TelegramBot from "node-telegram-bot-api";
 import * as dayjs from 'dayjs';
 import * as customParseFormat from 'dayjs/plugin/customParseFormat';
 
@@ -31,18 +31,24 @@ export function initiateBot() {
     const chatId = msg.chat.id;
     const startDateDayJS = dayjs(match[1], 'YYYY-MM-DD');
     if(!startDateDayJS.isValid()) {
-      sendToUser(chatId, '⚠️ ERROR: Wrong date format. Pleae Use YYYY-MM-DD');
+      await sendToUser(chatId, '⚠️ ERROR: Wrong date format. Pleae Use YYYY-MM-DD');
     } else {
-      const formattedDate = startDateDayJS.format('YYYY-MM-DD');
-      sendToUser(chatId, `⚙️ Start Date is ${formattedDate}. Doing sync...`);
-      const result = await sync(formattedDate);
-      sendToUser(chatId, result);
+      try {
+        const formattedDate = startDateDayJS.format('YYYY-MM-DD');
+        await sendToUser(chatId, `⚙️ Start Date is ${formattedDate}. Doing sync...`);
+        const result = await sync(formattedDate);
+        await sendToUser(chatId, result);
+      }
+      catch(e) {
+        await sendToUser(chatId, e.message);
+      }
     }
   });
 
 
-  bot.on("message", msg => {
+  bot.on("message", async (msg) => {
     const chatId = msg.chat.id;
-    bot.sendMessage(chatId, "Received your message, thanks.");
+    await bot.sendMessage(chatId, "Received your message, thanks.");
   });
+  console.log('✅ Bot initiated');
 }

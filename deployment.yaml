@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: economy-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: economy-bot
+  template:
+    metadata:
+      labels:
+        app: economy-bot
+    spec:
+      containers:
+        - name: economy-bot
+          image: maxburanbaev/economy_bot:v1
+          ports:
+            - containerPort: 3000
+              protocol: TCP

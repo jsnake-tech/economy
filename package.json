@@ -13,7 +13,7 @@
     "dayjs": "^1.8.21",
     "dotenv-flow": "^3.1.0",
     "lodash": "^4.17.15",
-    "node-telegram-bot-api": "^0.40.0",
+    "node-telegram-bot-api": "^0.50.0",
     "pg": "^7.18.1",
     "pg-format": "^1.0.4",
     "request-promise": "^4.2.5",
