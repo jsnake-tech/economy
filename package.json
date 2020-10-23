@@ -6,6 +6,7 @@
   "author": "Max Buranbaev <max@izst.ru>",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "start": "node .build/index.js"
   },
   "dependencies": {

@@ -10,4 +10,5 @@ RUN npm install
 
 EXPOSE 3000
 
+CMD ["yarn", "build"]
 CMD ["node", ".build/index.js"]
