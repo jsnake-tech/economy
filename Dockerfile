@@ -7,8 +7,9 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN npm install
+RUN yarn build
 
 EXPOSE 3000
 
-CMD ["yarn", "build"]
+
 CMD ["node", ".build/index.js"]
